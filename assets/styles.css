@@ -5,7 +5,7 @@
 }
 body {
   height: 100vh;
-  display: flex;
+  display: flex; 
   background-color: white;
 }
 .memory-game {
@@ -15,7 +15,7 @@ body {
   flex-wrap: wrap;
   width: 1050px;
   justify-content: center;
-  /* perspective: 1000px;  */
+  perspective: 1000px; 
 }
 .row {
   display: flex;
