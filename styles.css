@@ -2,7 +2,12 @@ body {
   background-color: blue;
 }
 
+.row {
+  display: flex;
+}
 .card {
+  height: 50px;
+  width: 50px;
   border: 1px solid black;
-  background-color: white;
+  background-color: lightgray;
 }
