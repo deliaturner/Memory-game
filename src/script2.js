@@ -23,11 +23,17 @@ function flipCard() {
 //Do the cards Match?
 function checkForMatch() {
     console.log(firstCard, secondCard)
-    let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+    let isMatch = (firstCard.dataset.framework === secondCard.dataset.framework);
     if (isMatch) {
         console.log('cards match')
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
+        firstCard.style.display = "hidden";
+        firstCard.style.display = "hidden";
+        firstCard.childNodes[3].style.display = "none";
+        firstCard.childNodes[1].style.display = "none";
+        secondCard.childNodes[3].style.display = "none";
+        secondCard.childNodes[1].style.display = "none";
     } else {
         unflipCards()
     }
@@ -45,11 +51,11 @@ function unflipCards() {
     }, 1000)
     lockBoard = true;
     // Check for setTimeout on how to have cards flip back facedown automatically when it is not a matched pair.
-    // setTimeout(() => {
-    //   firstCard.classList.remove('flip');
-    //   secondCard.classList.remove('flip');
-    //   lockBoard= false;
-    // }, 2000);
+    setTimeout(() => {
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+      lockBoard= false;
+    }, 2000);
 }
 // Board is reset to all cards being on back face
 function resetBoard() {
