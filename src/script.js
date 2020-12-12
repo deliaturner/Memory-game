@@ -57,6 +57,7 @@ function unflipCards() {
     lockBoard = false;
   }, 2000);
 }
+
 // Timer display
 const timer = document.getElementById("timerbutton");
 let interval = setInterval(startTimer, 1000); //do the startTimer function every 1 second (1000ms)
@@ -70,6 +71,7 @@ function startTimer() {
     second = 0;
   }
 }
+
 // Reset the Timer
 function resetTimer() {
   clearInterval(interval); //stop the timer
@@ -77,8 +79,11 @@ function resetTimer() {
   minute = 0;
   setInterval(startTimer, 1000); //start the timer again
 }
-// Reset Button will flip all cards back-face, and the newDeal() function
-document.getElementById("resetbutton").addEventListener("click", function () {
+
+// Reset and Start Button will flip all cards back-face, reset all the variables, shuffle, append to screen, and start the timer at zero
+document.getElementById("startbutton").addEventListener("click", startAndReset);
+document.getElementById("resetbutton").addEventListener("click", startAndReset);
+function startAndReset() {
   for (let card of cards) {
     //display all card backs
     card.style.display = "inline-block"; //display all cards
@@ -88,7 +93,7 @@ document.getElementById("resetbutton").addEventListener("click", function () {
   resetBoard(); //resets the card variables
   newDeal(); //shuffle and add to screen
   resetTimer(); //stops and starts the timer at zero
-});
+}
 
 // Board is reset to all cards being on back face
 function resetBoard() {
