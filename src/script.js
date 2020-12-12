@@ -57,18 +57,37 @@ function unflipCards() {
     lockBoard = false;
   }, 2000);
 }
-// Reset Button will flip all cards back-face, shuffle the cards, and print out a newDeal
-document.getElementById("resetbutton").addEventListener("click", function () {
-  //   resetBoard();
-  newDeal(); //[1] is front [3] is back
-  for (let card of cards) {
-    card.style.display = "inline-block";
-    // card.childNodes[1].style.display = "inline-block";
-    card.childNodes[3].style.display = "inline-block";
-    card.childNodes[1].classList.add("hidden");
-    // card.childNodes[3].classList.remove("hidden");
+// Timer display
+const timer = document.getElementById("timerbutton");
+let interval = setInterval(startTimer, 1000); //do the startTimer function every 1 second (1000ms)
+let second = 0; //set intial time to zero
+let minute = 0;
+function startTimer() {
+  timer.innerHTML = `${minute}mins ${second}secs`; //display on screen
+  second++;
+  if (second == 60) {
+    minute++;
+    second = 0;
   }
-  // Also reset the timer here
+}
+// Reset the Timer
+function resetTimer() {
+  clearInterval(interval); //stop the timer
+  second = 0; // reset to zero
+  minute = 0;
+  setInterval(startTimer, 1000); //start the timer again
+}
+// Reset Button will flip all cards back-face, and the newDeal() function
+document.getElementById("resetbutton").addEventListener("click", function () {
+  for (let card of cards) {
+    //display all card backs
+    card.style.display = "inline-block"; //display all cards
+    card.childNodes[3].style.display = "inline-block"; //display backs
+    card.childNodes[1].classList.add("hidden"); //hide fronts
+  }
+  resetBoard(); //resets the card variables
+  newDeal(); //shuffle and add to screen
+  resetTimer(); //stops and starts the timer at zero
 });
 
 // Board is reset to all cards being on back face
@@ -89,6 +108,7 @@ function shuffle() {
 }
 
 function newDeal() {
+  //put cards on the screen
   gameBoard.innerHTML = "";
   shuffle();
   cards.forEach((card) => {
