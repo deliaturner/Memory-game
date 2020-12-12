@@ -4,24 +4,39 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 // User will open game and select a card to be flipped
+// ADDED cannot click same card to compare
+let clickedCardCount = 0;
 function flipCard() {
-  console.log(this.childNodes);
-  this.childNodes[3].classList.toggle("hidden");
-  this.childNodes[1].classList.toggle("hidden");
-  console.log("flip the card");
-  if (!hasFlippedCard) {
-    // First Card Clicked
-    hasFlippedCard = true;
+  // console.log(this.childNodes);
+  // console.log("flip the card");
+  clickedCardCount++;
+  if (clickedCardCount === 1) {
+    this.childNodes[3].classList.toggle("hidden");
+    this.childNodes[1].classList.toggle("hidden");
     firstCard = this;
-    // Second Card Clicked
-  } else {
-    hasFlippedCard = false;
-    secondCard = this;
-    checkForMatch();
   }
+  if (clickedCardCount > 1) {
+    if (firstCard !== this) {
+      this.childNodes[3].classList.toggle("hidden");
+      this.childNodes[1].classList.toggle("hidden");
+      secondCard = this;
+      checkForMatch();
+      clickedCardCount = 0;
+    }
+  }
+  // if (!hasFlippedCard) {
+  //   // First Card Clicked
+  //   hasFlippedCard = true;
+  //   firstCard = this;
+  //   // Second Card Clicked
+  // } else {
+  //   hasFlippedCard = false;
+  //   secondCard = this;
+  //   checkForMatch();
+  // }
 }
-//Do the cards Match?
-// let matchedCards = 0;
+// Do the cards Match?
+let matchedPairs = 0;
 function checkForMatch() {
   console.log(firstCard, secondCard);
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
@@ -35,11 +50,11 @@ function checkForMatch() {
     firstCard.childNodes[1].style.display = "none";
     secondCard.childNodes[3].style.display = "none";
     secondCard.childNodes[1].style.display = "none";
-    // matchedCards++;
-    // if (matchedCards === 10) {
-    //   clearInterval(interval); //stop the timer
-    //   alert(`YOU WIN!!! It took ${minute}mins and ${second}secs to WIN!!`);
-    // }
+    matchedPairs++;
+    if (matchedPairs === 10) {
+      clearInterval(interval); //stop the timer
+      alert(`YOU WIN!!! It took ${minute}mins and ${second}secs to WIN!!`);
+    }
   } else {
     unflipCards();
   }
