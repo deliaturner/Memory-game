@@ -42,14 +42,7 @@ function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
   if (isMatch) {
     console.log("cards match");
-    firstCard.removeEventListener("click", flipCard);
-    secondCard.removeEventListener("click", flipCard);
-    firstCard.style.display = "hidden";
-    secondCard.style.display = "hidden";
-    firstCard.childNodes[3].style.display = "none";
-    firstCard.childNodes[1].style.display = "none";
-    secondCard.childNodes[3].style.display = "none";
-    secondCard.childNodes[1].style.display = "none";
+    setTimeout(removeCardsFromGame, 1000); //display for 1 sec before removing
     matchedPairs++;
     if (matchedPairs === 10) {
       clearInterval(interval); //stop the timer
@@ -58,6 +51,16 @@ function checkForMatch() {
   } else {
     unflipCards();
   }
+}
+function removeCardsFromGame() {
+  firstCard.removeEventListener("click", flipCard);
+  secondCard.removeEventListener("click", flipCard);
+  firstCard.style.display = "hidden";
+  secondCard.style.display = "hidden";
+  firstCard.childNodes[3].style.display = "none";
+  firstCard.childNodes[1].style.display = "none";
+  secondCard.childNodes[3].style.display = "none";
+  secondCard.childNodes[1].style.display = "none";
 }
 // Disable(Stop) cards from being moved
 function disableCards() {}
