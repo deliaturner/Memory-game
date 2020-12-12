@@ -21,6 +21,7 @@ function flipCard() {
   }
 }
 //Do the cards Match?
+// let matchedCards = 0;
 function checkForMatch() {
   console.log(firstCard, secondCard);
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
@@ -34,6 +35,11 @@ function checkForMatch() {
     firstCard.childNodes[1].style.display = "none";
     secondCard.childNodes[3].style.display = "none";
     secondCard.childNodes[1].style.display = "none";
+    // matchedCards++;
+    // if (matchedCards === 10) {
+    //   clearInterval(interval); //stop the timer
+    //   alert(`YOU WIN!!! It took ${minute}mins and ${second}secs to WIN!!`);
+    // }
   } else {
     unflipCards();
   }
@@ -87,7 +93,7 @@ document.getElementById("resetbutton").addEventListener("click", function () {
   }
   resetBoard(); //resets the card variables
   newDeal(); //shuffle and add to screen
-  resetTimer(); //stops and starts the timer at zero
+  resetTimer(); //stops, resets to zero, and starts the timer at zero
 });
 
 // Board is reset to all cards being on back face
