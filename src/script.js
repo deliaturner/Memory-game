@@ -52,6 +52,7 @@ function checkForMatch() {
     unflipCards();
   }
 }
+// remove cards from game
 function removeCardsFromGame() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
