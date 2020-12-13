@@ -9,6 +9,7 @@ let clickedCardCount = 0;
 function flipCard() {
   // console.log(this.childNodes);
   // console.log("flip the card");
+  if (lockBoard) return; //if locked, don't do anything
   clickedCardCount++;
   if (clickedCardCount === 1) {
     this.childNodes[3].classList.toggle("hidden");
@@ -52,6 +53,7 @@ function checkForMatch() {
     unflipCards();
   }
 }
+// remove cards from game
 function removeCardsFromGame() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
@@ -63,22 +65,22 @@ function removeCardsFromGame() {
   secondCard.childNodes[1].style.display = "none";
 }
 // Disable(Stop) cards from being moved
-function disableCards() {}
+// function disableCards() {}
 //Cards will stay face up
 function unflipCards() {
-  console.log("not a match");
+  // console.log("not a match");
+  lockBoard = true; // cannot click more cards
   setTimeout(() => {
     firstCard.childNodes[3].classList.toggle("hidden");
     firstCard.childNodes[1].classList.toggle("hidden");
     secondCard.childNodes[3].classList.toggle("hidden");
     secondCard.childNodes[1].classList.toggle("hidden");
   }, 1000);
-  lockBoard = true;
   // Check for setTimeout on how to have cards flip back facedown automatically when it is not a matched pair.
   setTimeout(() => {
     firstCard.classList.remove("flip");
     secondCard.classList.remove("flip");
-    lockBoard = false;
+    lockBoard = false; //allow clicking cards again
   }, 2000);
 }
 
