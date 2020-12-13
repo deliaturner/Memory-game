@@ -65,7 +65,7 @@ function removeCardsFromGame() {
   secondCard.childNodes[1].style.display = "none";
 }
 // Disable(Stop) cards from being moved
-function disableCards() {}
+// function disableCards() {}
 //Cards will stay face up
 function unflipCards() {
   // console.log("not a match");
@@ -80,7 +80,7 @@ function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove("flip");
     secondCard.classList.remove("flip");
-    lockBoard = false;
+    lockBoard = false; //allow clicking cards again
   }, 2000);
 }
 
