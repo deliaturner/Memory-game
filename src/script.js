@@ -5,6 +5,7 @@ let lockBoard = false;
 let firstCard, secondCard;
 let clickedCardCount = 0;
 let matchedPairs = 0;
+let startPressed = false;
 
 // deal cards upon page load
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -12,19 +13,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
   newDeal();
 });
 
-// run flipCard function upon card click
-cards.forEach((card) => card.addEventListener("click", flipCard));
-
 // Reset and Start Button will flip all cards back-face, reset all the variables, shuffle,
 // append to screen, and start the timer at zero
-document.getElementById("startbutton").addEventListener("click", startAndReset);
-document.getElementById("resetbutton").addEventListener("click", startAndReset);
-
-// timer display
-const timer = document.getElementById("timerbutton");
-let interval = setInterval(startTimer, 1000); //do the startTimer function every 1 second (1000ms)
-let second = 0; // set intial time to zero
-let minute = 0;
+document.getElementById("resetbutton").addEventListener("click", reset);
+document.getElementById("startbutton").addEventListener("click", startButtonPress);
 
 function startTimer() {
   timer.innerHTML = `${minute}mins ${second}secs`; //display on screen
@@ -32,6 +24,21 @@ function startTimer() {
   if (second === 60) {
     minute++;
     second = 0;
+  }
+}
+
+// timer display
+const timer = document.getElementById("timerbutton");
+let second = 0; // set intial time to zero
+let minute = 0;
+let interval;
+
+function startButtonPress() {
+  if (!startPressed) {
+    interval = setInterval(startTimer, 1000); // do the startTimer function every 1 second (1000ms)
+    // run flipCard function upon card click
+    cards.forEach((card) => card.addEventListener("click", flipCard));
+    startPressed = true;
   }
 }
 
@@ -101,12 +108,12 @@ function removeCardsFromGame() {
 
 // restore the game board for a new game
 // runs on click of Start or Reset buttons
-function startAndReset() {
+function reset() {
   for (let card of cards) {
     card.style.display = "block"; // display all cards
     card.childNodes[1].classList.add("hidden"); // apply hidden class to fronts
     card.childNodes[3].classList.remove("hidden"); // remove hidden class from backs
-    card.addEventListener("click", flipCard);   // reapply click event listener
+    card.removeEventListener("click", flipCard);
   }
   resetBoard(); // resets the card variables
   newDeal(); // shuffle and add to screen
@@ -121,6 +128,7 @@ function resetBoard() {
   secondCard = null;
   clickedCardCount = 0;
   matchedPairs = 0;
+  startPressed = false;
 }
 
 // shuffle the cards
@@ -149,5 +157,5 @@ function resetTimer() {
   clearInterval(interval); // stop the timer
   second = 0; // reset to zero
   minute = 0;
-  interval = setInterval(startTimer, 1000); // start the timer again
+  timer.innerHTML = `${minute}mins ${second}secs`; //display on screen
 }
